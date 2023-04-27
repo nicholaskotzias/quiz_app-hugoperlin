@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/botao_alternativa.dart';
 import 'package:quiz_app/controlador_quiz.dart';
+import 'botao_acao.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -15,6 +16,12 @@ class _HomePageState extends State<HomePage> {
   void _selecionarAlternativa(String alternativa) {
     setState(() {
       controladorQuiz.selecionarAlternativa(alternativa);
+    });
+  }
+
+  void _proximaPergunta() {
+    setState(() {
+      controladorQuiz.proximaPergunta();
     });
   }
 
@@ -47,7 +54,15 @@ class _HomePageState extends State<HomePage> {
                         controladorQuiz.alternativaSelecionada == alternativa,
                   );
                 },
-              )
+              ),
+              controladorQuiz.selecionouAlternativa
+                  ? BotaoAcao(
+                      texto: "Próxima pergunta",
+                      acao: _proximaPergunta,
+                    )
+                  : SizedBox(
+                      height: 100,
+                    )
             ],
           ),
         ),

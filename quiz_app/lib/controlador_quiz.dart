@@ -3,7 +3,7 @@ import 'questao.dart';
 
 class ControladorQuiz {
   final repositorio = RepositorioQuestoes();
-  String _alternartivaSelecionada = "";
+  String _alternativaSelecionada = "";
 
   int _indiceQuestaoAtual = 0;
 
@@ -11,11 +11,18 @@ class ControladorQuiz {
   Questao get questaoAtual => repositorio.listar()[_indiceQuestaoAtual];
   int get quantidadeTotalQuestoes => repositorio.listar().length;
 
-  String get alternativaSelecionada => _alternartivaSelecionada;
-  bool get selecionouAlternativa => _alternartivaSelecionada != "";
+  String get alternativaSelecionada => _alternativaSelecionada;
+  bool get selecionouAlternativa => _alternativaSelecionada != "";
 
   void selecionarAlternativa(String alternativa) {
-    _alternartivaSelecionada = alternativa;
+    _alternativaSelecionada = alternativa;
     print("Clicou na ${alternativa}");
+  }
+
+  void proximaPergunta() {
+    if (_indiceQuestaoAtual < quantidadeTotalQuestoes - 1) {
+      _indiceQuestaoAtual += 1;
+      _alternativaSelecionada = "";
+    }
   }
 }
