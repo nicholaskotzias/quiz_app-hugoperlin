@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/botao_alternativa.dart';
 import 'package:quiz_app/controlador_quiz.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final ControladorQuiz controladorQuiz = ControladorQuiz();
+
+  void _selecionarAlternativa(String alternativa) {
+    setState(() {
+      controladorQuiz.selecionarAlternativa(alternativa);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,25 +38,16 @@ class HomePage extends StatelessWidget {
               Text(questao.enunciado),
               Divider(thickness: 5),
               SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(questao.alternativas[0]),
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(questao.alternativas[1]),
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(questao.alternativas[2]),
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(questao.alternativas[3]),
-              ),
+              ...controladorQuiz.questaoAtual.alternativas.map(
+                (alternativa) {
+                  return BotaoAlternativa(
+                    alternativa: alternativa,
+                    acao: _selecionarAlternativa,
+                    selecionada:
+                        controladorQuiz.alternativaSelecionada == alternativa,
+                  );
+                },
+              )
             ],
           ),
         ),
