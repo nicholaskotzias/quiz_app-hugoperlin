@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   void _proximaPergunta() {
     setState(() {
-      controladorQuiz.proximaPergunta();
+      //controladorQuiz.proximaPergunta();
     });
   }
 
